@@ -156,7 +156,10 @@ class PostgresDB(DBConnector):
 
     def insert_data(self, table_name: str, data: list[tuple], columns: int) -> None:  # заполнение таблицы
         template = '(' + ','.join(['%s'] * columns) + ')'
-        self._cursor.executemany(f"INSERT INTO {table_name} VALUES {template}", data)
+        try:
+            self._cursor.executemany(f"INSERT INTO {table_name} VALUES {template}", data)
+        except:
+            pass
 
     def _execute_script(self, script_file: str) -> None:  # выполнение sql-скрипт из файла
         try:
