@@ -2,6 +2,8 @@ from requests import get
 import os
 import psycopg2
 
+from config import *
+
 
 class DBConnector:
     """
@@ -10,12 +12,7 @@ class DBConnector:
 
     @staticmethod
     def _create_connection(db_name='postgres'):  # создание соединения с бд
-        params = dict(
-            host="localhost",
-            database=db_name,
-            user="postgres",
-            password="12345"
-        )
+        params = config()
         connection = None
         try:
             connection = psycopg2.connect(**params)
@@ -30,7 +27,7 @@ class DBConnector:
 
 class DBManager(DBConnector):
     """
-    Взаимодействует с бд
+    Взаимодействует с БД
     """
 
     def __init__(self, db_name: str):
