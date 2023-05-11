@@ -1,4 +1,5 @@
 from requests import get
+import os
 import psycopg2
 
 
@@ -137,7 +138,9 @@ class PostgresDB(DBConnector):
     Создает базу данных Postgres и таблицы для работы с НН
     """
 
-    _create_tables_script = 'C:/Users/Admin/Desktop/SkyPro/Curse_work_5_-DataBases-/db_manager/create_db_tables.sql'
+    script_dir = os.path.dirname("Curse_work_5_-DataBases-")
+    rel_path = "db_manager\create_db_tables.sql"
+    _create_tables_script = os.path.join(script_dir, rel_path)
 
     def __init__(self, db_name: str):
         self._db_name = db_name
